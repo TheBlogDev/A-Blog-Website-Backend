@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsx watch app.ts",
-    "start": "node dist/app.js"
+    "dev": "tsx watch server.ts",
+    "start": "node dist/server.js"
   },
   "author": "Daniel Mason",
   "license": "ISC",
