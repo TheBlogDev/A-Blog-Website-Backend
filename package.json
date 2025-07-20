@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "dev": "tsx watch server.ts",
-    "start": "node dist/server.js",
+    "dev": "tsx watch db.ts",
+    "start": "node dist/db.js",
     "test": "vitest"
   },
   "author": "Daniel Mason",
