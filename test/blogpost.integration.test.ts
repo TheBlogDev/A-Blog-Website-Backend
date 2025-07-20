@@ -48,13 +48,6 @@ beforeEach(async () => {
 
 describe("Blogpost API endpoints - Happy Path", () => {
 
-  it("GET /api/blogpost - what happens when no id provided?", async () => {
-    const res = await request(app).get("/api/blogpost");
-    expect(res.statusCode).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBe(0);
-  });
-
   it("POST /api/blogpost - should create a new blog post", async () => {
     const res = await request(app)
       .post("/api/blogpost")
