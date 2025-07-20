@@ -14,7 +14,7 @@ dotenv.config();
 
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: process.env.NODE_ENV === "production" ? 100 : 0,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: "Too many requests, please try again later.",
@@ -50,7 +50,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // middleware
 app.use(express.json());
-app.use(apiLimiter);
+if(process.env.NODE_ENV === "production"){
+  app.use(apiLimiter);
+}
+
 // serves static files
 app.use(express.static("public"));
 
