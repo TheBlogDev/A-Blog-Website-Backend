@@ -1,7 +1,6 @@
 import express, { type Request, type NextFunction, type Response } from "express"
 import rateLimit from "express-rate-limit";
 import cors, { type CorsOptions } from "cors";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import swaggerUIPath from "swagger-ui-express";
@@ -13,11 +12,9 @@ import userRoutes from "./routes/user.js";
 const app = express();
 dotenv.config();
 
-const PORT = process.env.PORT || 5000;
-
 export const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: process.env.NODE_ENV === "production" ? 100 : 0,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: "Too many requests, please try again later.",
@@ -53,7 +50,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // middleware
 app.use(express.json());
-app.use(apiLimiter);
+if(process.env.NODE_ENV === "production"){
+  app.use(apiLimiter);
+}
+
 // serves static files
 app.use(express.static("public"));
 
@@ -84,17 +84,4 @@ app.use(
 // Swagger API Endpoint
 app.use("/api-docs", swaggerUIPath.serve, swaggerUIPath.setup(swaggerjsonFilePath));
 
-// --- MongoDB Connection ---
-// connect to db
-mongoose.set("strictQuery", false);
-mongoose
-  .connect(process.env.MONGODB || "")
-  .then(() => {
-    // listen for requests
-    app.listen(PORT, () => {
-      console.log(`connected to db & listening on port ${PORT}`);
-    });
-  })
-  .catch((err: Error) => {
-    console.log(err, "the mongodb string is not correct");
-  });
+export default app;
