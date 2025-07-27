@@ -45,7 +45,7 @@
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.14.1",
+    "@types/node": "^24.0.10",
     "@types/swagger-ui-express": "^4.1.8",
     "@types/validator": "^13.15.0",
     "ts-node": "^10.9.2",
